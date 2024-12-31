@@ -25,6 +25,38 @@ mixin _$HomeController on _HomeController, Store {
     });
   }
 
+  late final _$backgroundColorAtom =
+      Atom(name: '_HomeController.backgroundColor', context: context);
+
+  @override
+  dynamic get backgroundColor {
+    _$backgroundColorAtom.reportRead();
+    return super.backgroundColor;
+  }
+
+  @override
+  set backgroundColor(dynamic value) {
+    _$backgroundColorAtom.reportWrite(value, super.backgroundColor, () {
+      super.backgroundColor = value;
+    });
+  }
+
+  late final _$fontSizeAtom =
+      Atom(name: '_HomeController.fontSize', context: context);
+
+  @override
+  double get fontSize {
+    _$fontSizeAtom.reportRead();
+    return super.fontSize;
+  }
+
+  @override
+  set fontSize(double value) {
+    _$fontSizeAtom.reportWrite(value, super.fontSize, () {
+      super.fontSize = value;
+    });
+  }
+
   late final _$jobListAtom =
       Atom(name: '_HomeController.jobList', context: context);
 
@@ -65,10 +97,37 @@ mixin _$HomeController on _HomeController, Store {
     return _$fetchjobListAsyncAction.run(() => super.fetchjobList());
   }
 
+  late final _$_HomeControllerActionController =
+      ActionController(name: '_HomeController', context: context);
+
+  @override
+  void changeBackgroundColor() {
+    final _$actionInfo = _$_HomeControllerActionController.startAction(
+        name: '_HomeController.changeBackgroundColor');
+    try {
+      return super.changeBackgroundColor();
+    } finally {
+      _$_HomeControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void changeFontSize() {
+    final _$actionInfo = _$_HomeControllerActionController.startAction(
+        name: '_HomeController.changeFontSize');
+    try {
+      return super.changeFontSize();
+    } finally {
+      _$_HomeControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 fetchResultItem: ${fetchResultItem},
+backgroundColor: ${backgroundColor},
+fontSize: ${fontSize},
 jobList: ${jobList},
 errorMessage: ${errorMessage}
     ''';

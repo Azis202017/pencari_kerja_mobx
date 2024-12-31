@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:pencari_kerja_mobx_state/data/model/result_item.dart';
 part 'home_controller.g.dart';
@@ -10,6 +11,10 @@ abstract class _HomeController with Store {
   @observable
   ObservableFuture<List<ResultItem>>? fetchResultItem;
 
+  @observable
+  dynamic backgroundColor = Colors.white;
+  @observable
+  double fontSize = 14;
   @observable
   List<ResultItem> jobList = [];
 
@@ -44,4 +49,13 @@ abstract class _HomeController with Store {
       errorMessage = 'Failed to fetch jobList: $error';
     }
   }
+  @action
+  void changeBackgroundColor() {
+    backgroundColor = backgroundColor == Colors.white ? Colors.red : Colors.white;
+  }
+  @action
+  void changeFontSize() {
+    fontSize = 40;
+  }
 }
+
