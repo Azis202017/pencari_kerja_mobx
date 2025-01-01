@@ -23,7 +23,7 @@ abstract class _HomeController with Store {
 
   @action
   Future<void> fetchjobList() async {
-    const url = 'https://data.usajobs.gov/api/Search?ResultsPerPage=7000';
+    const url = 'https://data.usajobs.gov/api/Search?ResultsPerPage=5000';
 
     try {
       fetchResultItem = ObservableFuture(
