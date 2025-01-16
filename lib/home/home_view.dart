@@ -38,83 +38,87 @@ class HomeView extends StatelessWidget {
 
               return RefreshIndicator(
                 onRefresh: _refresh,
-                child: ListView.builder(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: homeController.jobList.length,
-                  itemBuilder: (context, index) {
-                    final data = homeController.jobList[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: InkWell(
-                        borderRadius: const BorderRadius.all(Radius.circular(20)),
-                        onTap: () {
-                          // Get.toNamed(
-                          //   '/detail',
-                          //   arguments: {
-                          //     "data": data,
-                          //   },
-                          // );
-                          context.goNamed("detail", extra: data);
-                        },
-                        child: Ink(
-                          padding: const EdgeInsets.all(16),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${data.matchedObjectDescriptor?.positionTitle}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: homeController.fontSize,
+                child: Scrollbar(
+                  
+                  child: ListView.builder(
+                      controller: homeController.scrollController,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: homeController.jobList.length,
+                    itemBuilder: (context, index) {
+                      final data = homeController.jobList[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: InkWell(
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                          onTap: () {
+                            // Get.toNamed(
+                            //   '/detail',
+                            //   arguments: {
+                            //     "data": data,
+                            //   },
+                            // );
+                            context.goNamed("detail", extra: data);
+                          },
+                          child: Ink(
+                            padding: const EdgeInsets.all(16),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(20)),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${data.matchedObjectDescriptor?.positionTitle}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: homeController.fontSize,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/city.png',
-                                    width: 24,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      "${data.matchedObjectDescriptor?.departmentName}",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/city.png',
+                                      width: 24,
+                                      fit: BoxFit.fitWidth,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/maps.png',
-                                    width: 24,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      "${data.matchedObjectDescriptor?.positionLocationDisplay}",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        "${data.matchedObjectDescriptor?.departmentName}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/maps.png',
+                                      width: 24,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        "${data.matchedObjectDescriptor?.positionLocationDisplay}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               );
             },
@@ -131,6 +135,10 @@ class HomeView extends StatelessWidget {
               FloatingActionButton(
                   onPressed: homeController.changeFontSize,
                   child: const Icon(Icons.font_download)),
+             FloatingActionButton(
+              onPressed: homeController.scrollToBottom,
+              child: const Icon(Icons.arrow_downward),
+            ),
             ],
           ),
         );

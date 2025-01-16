@@ -8,6 +8,7 @@ class HomeController = _HomeController with _$HomeController;
 
 abstract class _HomeController with Store {
   final Dio _dio = Dio();
+  ScrollController scrollController  = ScrollController();
   @observable
   ObservableFuture<List<ResultItem>>? fetchResultItem;
 
@@ -22,8 +23,8 @@ abstract class _HomeController with Store {
   String errorMessage = '';
 
   @action
-  Future<void> fetchjobList() async {
-    const url = 'https://data.usajobs.gov/api/Search?ResultsPerPage=5000';
+    Future<void> fetchjobList() async {
+    const url = 'https://data.usajobs.gov/api/Search?ResultsPerPage=10000 ';
 
     try {
       fetchResultItem = ObservableFuture(
@@ -56,6 +57,15 @@ abstract class _HomeController with Store {
   @action
   void changeFontSize() {
     fontSize = 40;
+  }
+  void scrollToBottom() {
+    if(scrollController.hasClients) {
+       scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(seconds: 100), // Durasi animasi lebih lama
+        curve: Curves.easeInOut, // Kurva animasi untuk efek lebih smooth
+      );
+    }
   }
 }
 
